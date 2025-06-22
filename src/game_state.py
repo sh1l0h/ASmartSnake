@@ -9,6 +9,7 @@ class SnakeGame:
         self.snake = [init]
         self.food = self._place_food()
         self.game_over = False
+        self.score = 0
 
     def _place_food(self):
         total = self.w * self.h - len(self.snake)
@@ -47,6 +48,7 @@ class SnakeGame:
         self.snake.append(new_head)
         if new_head == self.food:
             self.food = self._place_food()
+            self.score += 1
             return 'food'
         else:
             self.snake.pop(0)

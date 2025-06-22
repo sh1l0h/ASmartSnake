@@ -13,6 +13,7 @@ FPS = 120
 class SnakeDisplay:
     def __init__(self, w, h, agent_type='random'):
         pygame.init()
+        self.font = pygame.font.SysFont(None, 36)
         self.screen = pygame.display.set_mode((w*CELL_SIZE, h*CELL_SIZE))
         pygame.display.set_caption('A Smart Snake')
         self.clock = pygame.time.Clock()
@@ -30,14 +31,24 @@ class SnakeDisplay:
 
     def draw(self):
         self.screen.fill((0,0,0))
+
+        # Draw food
         if self.game.food:
             fx, fy = self.game.food
             pygame.draw.rect(self.screen, (255,0,0), 
-                           (fx*CELL_SIZE, fy*CELL_SIZE, CELL_SIZE, CELL_SIZE))
+                             (fx*CELL_SIZE, fy*CELL_SIZE, CELL_SIZE, CELL_SIZE))
+
+        # Draw snake
         for x,y in self.game.snake:
             pygame.draw.rect(self.screen, (0,255,0), 
-                           (x*CELL_SIZE, y*CELL_SIZE, CELL_SIZE, CELL_SIZE))
+                             (x*CELL_SIZE, y*CELL_SIZE, CELL_SIZE, CELL_SIZE))
+
+        # Draw score
+        score_text = self.font.render(f"Score: {self.game.score}", True, (255, 255, 255))
+        self.screen.blit(score_text, (10, 10))
+
         pygame.display.flip()
+
 
     def run(self):
         running = True
