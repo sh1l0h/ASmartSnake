@@ -76,6 +76,7 @@ class TrainingConfig:
     epsilon_decay: Rate at which exploration decreases per episode.
     max_episodes: Total training episodes.
     max_steps_per_episode: Max steps per episode before force-ending.
+    early_stop_threshold: Average score threshold for early stopping.
     """
 
     learning_rate: float = 0.1
@@ -85,6 +86,7 @@ class TrainingConfig:
     max_episodes: int = 1000
     max_steps_per_episode: int = 1000
     gamma: float = 0.95
+    early_stop_threshold: float = 50.0
 
 
 class QTable:
@@ -346,7 +348,7 @@ class QTableTrainer:
             return False
 
         recent_avg = sum(m.score for m in self.metrics_history[-100:]) / 100
-        if recent_avg > 15:
+        if recent_avg > self.config.early_stop_threshold:
             return True
 
         return False

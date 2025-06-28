@@ -107,18 +107,20 @@ class TrainingConfig:
     target_update_freq: Steps between syncing main → target network.
     max_episodes: Total training episodes.
     max_steps_per_episode: Max steps per episode before force-ending.
+    early_stop_threshold: Average score threshold for early stopping.
     """
 
     learning_rate: float = 0.001
     epsilon_start: float = 1.0
     epsilon_end: float = 0.01
-    epsilon_decay: float = 0.99
+    epsilon_decay: float = 0.98
     batch_size: int = 32
     memory_size: int = 10000
     target_update_freq: int = 100
-    max_episodes: int = 1000
+    max_episodes: int = 2000
     max_steps_per_episode: int = 1000
     gamma: float = 0.95
+    early_stop_threshold: float = 15.0
 
 
 Experience = namedtuple(
@@ -394,7 +396,7 @@ class SnakeTrainer:
             return False
 
         recent_avg = sum(m.score for m in self.metrics_history[-100:]) / 100
-        if recent_avg > 15:
+        if recent_avg > self.config.early_stop_threshold:
             return True
 
         return False
