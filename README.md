@@ -57,8 +57,43 @@ python src/nn_agent.py
 python src/q_agent.py
 ```
 
+## Comparing Agents
+
+To run a comprehensive comparison between all three agents:
+```bash
+python src/compare_agents.py
+```
+
+## Storage and Output Files
+
+After running the various commands, training data and visualizations are stored in the `storage/` directory:
+
+### Neural Network Training (`python src/nn_agent.py`)
+- **Trained weights**: `storage/nn/snake_weights_{width}x{height}.pth`
+- **Training progress plots**: `storage/nn/training_progress.png` (updated every 50 episodes)
+
+### Q-Learning Training (`python src/q_agent.py`)
+- **Q-table data**: `storage/q/snake_table_{width}x{height}.pkl`
+- **Training progress plots**: `storage/q/training_progress.png` (updated every 50 episodes)
+
+### Agent Comparison (`python src/compare_agents.py`)
+- **Comparison dashboard**: `storage/compare/snake_ai_comparison.png`
+
 ## Controls
 - Use arrow keys to control the snake manually
 - Press 'Q' to quit the game
 - Press 'R' to restart the game
 - Press 'P' to pause/unpause
+
+## Directory Structure
+```
+storage/
+├── nn/                                    # Neural Network artifacts
+│   ├── snake_weights_{width}x{height}.pth # Trained model weights
+│   └── training_progress.png             # Training progress visualization
+├── q/                                     # Q-Learning artifacts
+│   ├── snake_table_{width}x{height}.pkl  # Trained Q-table
+│   └── training_progress.png             # Training progress visualization
+└── compare/                               # Comparison results
+    └── snake_ai_comparison.png            # Agent performance comparison
+```
