@@ -4,10 +4,8 @@ from collections import defaultdict
 from dataclasses import dataclass
 from typing import List, Tuple, Dict, Optional
 import matplotlib.pyplot as plt
-import matplotlib
 import os
 
-matplotlib.use('Agg')
 from game_state import SnakeGame
 
 
